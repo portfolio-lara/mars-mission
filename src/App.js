@@ -11,6 +11,20 @@ function App() {
     const [loading, setloading] = useState(true); // Pre-loader before page renders
     const [tasks, setTasks] = useState([]); // Task State
     const [showAddTask, setShowAddTask] = useState(false); // To reveal add task form
+    const [img, setImg] = useState();
+
+    const imageURL = 'https://source.unsplash.com/random/800x600/?mars';
+
+    const fetchImage = async () => {
+        const res = await fetch(imageURL);
+        const imageBlob = await res.blob();
+        const imageObjectURL = URL.createObjectURL(imageBlob);
+        setImg(imageObjectURL);
+      };
+
+      useEffect(() => {
+        fetchImage();
+      }, []);
 
     // Fetching from Local Storage
     const getTasks = JSON.parse(localStorage.getItem("taskAdded"));
@@ -65,15 +79,16 @@ function App() {
                 
                 <div className="container">
                 <div className="fixed-top"> 
-                <h1>Itsy bitsy teeny weeny rock collecting mars machiney</h1> </div>
+                <h1>Itsy bitsy teeny weeny rock collecting mars machiney</h1> 
+                </div>
+              
                 <div className="mainContent">
-
-                  {/* App Header that has open and App Name */}
+                <div className="goingHere">
+               <img src={img} alt="icons" />
+               </div>
                   <Header showForm={() => setShowAddTask(!showAddTask)} changeTextAndColor={showAddTask} />
-                  {/* Revealing of Add Task Form */}
                   {showAddTask && <AddTask onSave={addTask} />}
                   
-                  {/* Displaying of Tasks */}
                   {
                       tasks.length > 0 ?
                           (<Tasks tasks={tasks} onDelete={deleteTask} onEdit={editTask} />) :
