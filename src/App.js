@@ -7,9 +7,7 @@ import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 function App() {
-    // All States
-    const [loading, setloading] = useState(true); // Pre-loader before page renders
-    const [tasks, setTasks] = useState([]); // Task State
+        const [tasks, setTasks] = useState([]); 
     const [showAddTask, setShowAddTask] = useState(false); // To reveal add task form
     const [img, setImg] = useState();
 
